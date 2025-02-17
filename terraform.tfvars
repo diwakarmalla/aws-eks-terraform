@@ -26,6 +26,6 @@ access_entries =   {
         user_arn = []
       }
       admin = {
-        user_arn = ["arn:aws:iam::905418304539:user/cloud_user"]
+        user_arn = ["arn:aws:iam::471112643429:user/cloud_user"]
       }
     }
