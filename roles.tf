@@ -70,7 +70,7 @@ resource "aws_iam_role" "dev_role" {
       {
         Effect    = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::471112643429:root"
+          AWS = "arn:aws:iam::851725392626:root"
         },
         Action    = "sts:AssumeRole",
         Condition = {}

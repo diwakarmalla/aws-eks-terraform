@@ -3,25 +3,25 @@
 #     node_group_name = "eks-monitoring"
 # }
 
-resource "time_sleep" "wait_for_kubernetes" {
-    depends_on = [ 
-        module.eks.eks_managed_node_groups
-     ]
+# resource "time_sleep" "wait_for_kubernetes" {
+#     depends_on = [ 
+#         module.eks.eks_managed_node_groups
+#      ]
 
-     create_duration = "20s"
+#      create_duration = "20s"
   
-}
+# }
 
 resource "kubernetes_namespace" "kube-ns" {
-    depends_on = [ module.eks.eks_managed_node_groups, time_sleep.wait_for_kubernetes ]
+    depends_on = [ null_resource.kubectl ]
     metadata {
-      name = "prometheus"
+      name = "monitoring"
     }
   
 }
 
 resource "helm_release" "prometheus" {
-    depends_on = [ kubernetes_namespace.kube-ns, time_sleep.wait_for_kubernetes ]
+    depends_on = [ kubernetes_namespace.kube-ns ]
     name = "prometheus"
     repository = "https://prometheus-community.github.io/helm-charts"
     chart = "kube-prometheus-stack"
@@ -29,7 +29,7 @@ resource "helm_release" "prometheus" {
     create_namespace = true
     version = "45.7.1"
     values = [ 
-        file("values.yaml")
+        file("prometheus/values.yaml")
     ]
     timeout = 2000
 
