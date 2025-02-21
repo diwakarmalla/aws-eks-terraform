@@ -11,16 +11,17 @@ imagePullSecrets: []
 ##
 # serviceAccountName: prometheus-server
 prometheus:
-  serviceAccounts:
+  serviceAccount:
     server:
-      create: false
+      create: true
       name: "prometheus-server"
       annotations: {}
+      automountServiceAccountToken: true
   prometheusSpec:
     podMonitorSelector:
       matchLabels:
         app: strimzi
-
+    podMonitorNamespaceSelector: {}
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/jimmidyson/configmap-reload

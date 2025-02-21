@@ -15,7 +15,7 @@
 resource "kubernetes_namespace" "kube-ns" {
     depends_on = [ null_resource.kubectl ]
     metadata {
-      name = "monitoring"
+      name = "observability"
     }
   
 }
@@ -27,7 +27,7 @@ resource "helm_release" "prometheus" {
     chart = "kube-prometheus-stack"
     namespace = kubernetes_namespace.kube-ns.id
     create_namespace = true
-    version = "45.7.1"
+    version = "69.3.3"
     values = [ 
         file("prometheus/values.yaml")
     ]
@@ -47,12 +47,12 @@ resource "helm_release" "prometheus" {
       name = "server\\.resources"
       value = yamlencode({
         limits = {
-            cpu    = "200m"
-            memory = "50Mi"
+            cpu    = "1200m"
+            memory = "500Mi"
         }
         requests = {
-            cpu    = "100m"
-            memory = "30Mi"
+            cpu    = "1000m"
+            memory = "300Mi"
         }
         })
     }
