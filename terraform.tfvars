@@ -4,9 +4,9 @@ cluster_version = "1.32"
 ami = "AL2_x86_64"
 instance_type = ["t3.medium"]
 node-group = {
-      min_size     = 2
-      max_size     = 6
-      desired_size = 2
+      min_size     = 5
+      max_size     = 9
+      desired_size = 6
       disk_size      = 30
       iam_role_additional_policies = {
           ssm_access        = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
@@ -26,6 +26,6 @@ access_entries =   {
         user_arn = []
       }
       admin = {
-        user_arn = ["arn:aws:iam::395566946219:user/cloud_user"]
+        user_arn = ["arn:aws:iam::851725454959:user/cloud_user"]
       }
     }

@@ -4,6 +4,7 @@ metadata:
   name: kafka-go-consumer
   namespace: kafka
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: kafka-go-consumer

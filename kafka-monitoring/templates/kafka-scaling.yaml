@@ -1,0 +1,26 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kafka-scaledobject
+  namespace: kafka
+  labels:
+    name: kafka-go-consumer
+spec:
+  scaleTargetRef:
+    name: kafka-go-consumer
+  pollingInterval: 5
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+  - type: kafka
+    metadata:
+      bootstrapServers: my-cluster-kafka-bootstrap:9092
+      consumerGroup: my-kafka-go-consumer      # Make sure that this consumer group name is the same one as the one that is consuming topics
+      topic: my-topic
+      # Optional
+      lagThreshold: "10"
+      offsetResetPolicy: latest
+      sasl: plaintext
+      tls: enable
+    authenticationRef:
+      name: keda-kafka-credentials
