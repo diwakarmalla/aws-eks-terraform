@@ -1,13 +1,54 @@
-apiVersion: keda.sh/v1alpha1
-kind: TriggerAuthentication
-metadata:
-  name: keda-kafka-credentials
-  namespace: kafka
-spec:
-  secretTargetRef:
-    - parameter: username
-      name: keda-kafka-secret
-      key: username
-    - parameter: password
-      name: keda-kafka-secret
-      key: password
+# apiVersion: keda.sh/v1alpha1
+# kind: TriggerAuthentication
+# metadata:
+#   name: keda-kafka-credentials
+#   namespace: kafka
+# spec:
+#   secretTargetRef:
+#     - parameter: ca
+#       name: my-cluster-clients-ca-cert
+#       key: ca.crt
+#     - parameter: cert
+#       name: kafkauser
+#       key: user.crt
+#     - parameter: key
+#       name: kafkauser
+#       key: user.key
+# apiVersion: keda.sh/v1alpha1
+# kind: TriggerAuthentication
+# metadata:
+#   name: keda-kafka-credentials
+#   namespace: kafka
+# spec:
+#   secretTargetRef:
+#     - parameter: username
+#       name: keda-kafka-secret
+#       key: username
+#     - parameter: password
+#       name: keda-kafka-secret
+#       key: password
+# apiVersion: keda.sh/v1alpha1
+# kind: TriggerAuthentication
+# metadata:
+#   name: keda-kafka-credentials
+#   namespace: kafka
+# spec:
+#   secretTargetRef:
+#   - parameter: authMode
+#     name: keda-kafka-secrets
+#     key: authMode
+#   - parameter: tls
+#     name: keda-kafka-secrets
+#     key: tls
+#   - parameter: password
+#     name: kafkauser
+#     key: user.password
+#   - parameter: ca
+#     name: my-cluster-clients-ca-cert
+#     key: ca.crt
+#   - parameter: cert
+#     name: kafkauser
+#     key: user.crt
+#   - parameter: key
+#     name: kafkauser
+#     key: user.key

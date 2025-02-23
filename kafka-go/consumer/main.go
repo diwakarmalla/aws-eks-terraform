@@ -58,5 +58,8 @@ func main() {
 			break
 		}
 		fmt.Printf("Received message from %s-%d [%d]: %s = %s\n", m.Topic, m.Partition, m.Offset, string(m.Key), string(m.Value))
+		fmt.Println("Sleeping for 5min")
+		time.Sleep(5 * time.Minute)
+		fmt.Println("Sleep Over")
 	}
 }

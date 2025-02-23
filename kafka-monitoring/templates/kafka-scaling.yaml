@@ -7,20 +7,23 @@ metadata:
     name: kafka-go-consumer
 spec:
   scaleTargetRef:
+    kind: Deployment
     name: kafka-go-consumer
-  pollingInterval: 5
-  minReplicaCount: 1
-  maxReplicaCount: 10
+  pollingInterval: 10
+  minReplicaCount: 0
+  maxReplicaCount: 5
+  cooldownPeriod: 5
   triggers:
   - type: kafka
     metadata:
-      bootstrapServers: my-cluster-kafka-bootstrap:9092
+    #   bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
+      bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
       consumerGroup: my-kafka-go-consumer      # Make sure that this consumer group name is the same one as the one that is consuming topics
       topic: my-topic
       # Optional
-      lagThreshold: "10"
+      lagThreshold: "1"
       offsetResetPolicy: latest
-      sasl: plaintext
-      tls: enable
-    authenticationRef:
-      name: keda-kafka-credentials
+    #   sasl: plaintext
+    #   tls: enable
+    # authenticationRef:
+    #   name: keda-kafka-credentials
