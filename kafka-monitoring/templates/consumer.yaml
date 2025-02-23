@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-go-consumer
+  namespace: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kafka-go-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-go-consumer
+    spec:
+      containers:
+      - name: kafka-go-consumer
+        image: diwakar50/kafka-go-consumer:latest
+        imagePullSecrets:
+          - name: regcred
+        env:
+          - name: BOOTSTRAP_SERVERS
+            value: "my-cluster-kafka-bootstrap:9092"
+          - name: TOPIC
+            value: "my-topic"
+          - name: GROUP_ID
+            value: "my-kafka-go-consumer"

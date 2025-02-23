@@ -43,44 +43,44 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_driver" {
 }
 
 
-resource "aws_iam_policy" "dev_access" {
-  name        = "DeveloperAccessPolicy"
-  description = "DevelopperAcces"
+# resource "aws_iam_policy" "dev_access" {
+#   name        = "DeveloperAccessPolicy"
+#   description = "DevelopperAcces"
 
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "eks:DescribeCluster",
-          "eks:ListClusters",
-        ],
-        Resource = "*"
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "eks:DescribeCluster",
+#           "eks:ListClusters",
+#         ],
+#         Resource = "*"
+#       }
+#     ]
+#   })
+# }
 
-resource "aws_iam_role" "dev_role" {
-  name               = "Dev-Role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect    = "Allow",
-        Principal = {
-          AWS = "arn:aws:iam::730335291844:root"
-        },
-        Action    = "sts:AssumeRole",
-        Condition = {}
-      },
-    ],
-  })
-}
+# resource "aws_iam_role" "dev_role" {
+#   name               = "Dev-Role"
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect    = "Allow",
+#         Principal = {
+#           AWS = "arn:aws:iam::891377339969:root"
+#         },
+#         Action    = "sts:AssumeRole",
+#         Condition = {}
+#       },
+#     ],
+#   })
+# }
 
-resource "aws_iam_role_policy_attachment" "dev_access_attach" {
-  role       = aws_iam_role.dev_role.name
-  policy_arn = aws_iam_policy.dev_access.arn
-}
+# resource "aws_iam_role_policy_attachment" "dev_access_attach" {
+#   role       = aws_iam_role.dev_role.name
+#   policy_arn = aws_iam_policy.dev_access.arn
+# }
 

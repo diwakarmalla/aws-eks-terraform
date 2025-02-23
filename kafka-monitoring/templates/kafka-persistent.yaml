@@ -2,6 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: my-cluster
+  namespace: kafka
 spec:
   kafka:
     version: 3.7.1
@@ -21,7 +22,7 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: "3.9"
+      inter.broker.protocol.version: "3.7"
     storage:
       type: jbod
       volumes:
@@ -41,12 +42,6 @@ spec:
       type: persistent-claim
       size: 100Gi
       deleteClaim: false
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: zookeeper-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
