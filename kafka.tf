@@ -1,6 +1,6 @@
 # Create a namespace for observability
 resource "kubernetes_namespace" "kafka-namespace" {
-    depends_on = [ null_resource.kubectl ]
+    depends_on = [ local-exec.update_kubeconfig ]
     metadata {
         name = "kafka"
     }

@@ -13,7 +13,7 @@
 # }
 
 resource "kubernetes_namespace" "kube-ns" {
-    depends_on = [ null_resource.kubectl ]
+    depends_on = [ local-exec.update_kubeconfig ]
     metadata {
       name = "observability"
     }
