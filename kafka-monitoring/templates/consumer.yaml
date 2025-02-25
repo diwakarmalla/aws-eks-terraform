@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-go-consumer
-  namespace: kafka
+  name: {{ .Values.consumer.name }}
+  namespace: {{ .Values.kafka.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-go-consumer
+      app: {{ .Values.consumer.name }}
   template:
     metadata:
       labels:
-        app: kafka-go-consumer
+        app: {{ .Values.consumer.name }}
     spec:
       containers:
-      - name: kafka-go-consumer
-        image: diwakar50/kafka-go-consumer:latest
+      - name: {{ .Values.consumer.name }}
+        image: {{ .Values.consumer.image.name }}: {{- .Values.consumer.image.tag }}
         imagePullSecrets:
-          - name: regcred
+          - name: {{ .Values.imagePullSecrets }}
         env:
           - name: BOOTSTRAP_SERVERS
-            value: "my-cluster-kafka-bootstrap:9092"
+            value: {{ .Values.kafka.bootstrap.server }}: {{- .Values.kafka.bootstrap.port }}
           - name: TOPIC
-            value: "my-topic"
+            value: {{ .Values.kafka.topic.name }}
           - name: GROUP_ID
-            value: "my-kafka-go-consumer"
+            value: {{ .Values.consumer.GROUP_ID }}

@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: cluster-operator-metrics
-  namespace: observability
+  namespace: {{ .Values.observability.namespace }}
   labels:
     app: strimzi
 spec:
@@ -11,7 +11,7 @@ spec:
       strimzi.io/kind: cluster-operator
   namespaceSelector:
     matchNames:
-      - kafka
+      - {{ .Values.kafka.namespace }}
   podMetricsEndpoints:
   - path: /metrics
     port: http
@@ -21,7 +21,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: entity-operator-metrics
-  namespace: observability
+  namespace: {{ .Values.observability.namespace }}
   labels:
     app: strimzi
 spec:
@@ -30,7 +30,7 @@ spec:
       app.kubernetes.io/name: entity-operator
   namespaceSelector:
     matchNames:
-      - kafka
+      - {{ .Values.kafka.namespace }}
   podMetricsEndpoints:
   - path: /metrics
     port: healthcheck
@@ -40,7 +40,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: kafka-resources-metrics
-  namespace: observability
+  namespace: {{ .Values.observability.namespace }}
   labels:
     app: strimzi
 spec:
@@ -52,7 +52,7 @@ spec:
   fallbackScrapeProtocol: PrometheusText0.0.4
   namespaceSelector:
     matchNames:
-      - kafka
+      - {{ .Values.kafka.namespace }}
   podMetricsEndpoints:
   - path: /metrics
     port: tcp-prometheus

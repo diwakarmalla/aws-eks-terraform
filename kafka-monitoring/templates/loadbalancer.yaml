@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-lb
-  namespace: observability
+  namespace: {{ .Values.observability.namespace }}
 spec:
   selector:
     app.kubernetes.io/name: prometheus
     prometheus: prometheus-kube-prometheus-prometheus
   ports:
-    - port: 9090
-      targetPort: 9090
+    - port: {{ .Values.observability.prometheus.port }}
+      targetPort: {{ .Values.observability.prometheus.targetPort }}
   type: LoadBalancer
 
 ---
@@ -18,12 +18,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-lb
-  namespace: observability
+  namespace: {{ .Values.observability.namespace }}
 spec:
   selector:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: grafana
   ports:
-    - port: 80
-      targetPort: 3000
+    - port: {{ .Values.observability.grafana.port }}
+      targetPort: {{ .Values.observability.grafana.targetPort }}
   type: LoadBalancer

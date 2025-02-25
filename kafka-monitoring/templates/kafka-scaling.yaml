@@ -2,13 +2,13 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: kafka-scaledobject
-  namespace: kafka
+  namespace: {{ .Values.kafka.namespace }}
   labels:
-    name: kafka-go-consumer
+    name: {{ .Values.consumer.name }}
 spec:
   scaleTargetRef:
     kind: Deployment
-    name: kafka-go-consumer
+    name: {{ .Values.consumer.name }}
   pollingInterval: 10
   minReplicaCount: 2
   maxReplicaCount: 5
@@ -16,13 +16,8 @@ spec:
   triggers:
   - type: kafka
     metadata:
-      bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
-      consumerGroup: my-kafka-go-consumer      # Make sure that this consumer group name is the same one as the one that is consuming topics
-      topic: my-topic
-      # Optional
+      bootstrapServers: {{ .Values.kafka.bootstrap.server }}.kafka.svc.cluster.local: {{- .Values.kafka.bootstrap.port }}
+      consumerGroup: {{ .Values.consumer.GROUP_ID }}
+      topic: {{ .Values.kafka.topic.name }}
       lagThreshold: "1"
       offsetResetPolicy: latest
-    #   sasl: plaintext
-    #   tls: enable
-    # authenticationRef:
-    #   name: keda-kafka-credentials

@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-go-producer
-  namespace: kafka
+  name: {{ .Values.producer.name }}
+  namespace: {{ .Values.kafka.namespace }}
 spec:
   selector:
     matchLabels:
-      app: kafka-go-producer
+      app: {{ .Values.producer.name }}
   template:
     metadata:
       labels:
-        app: kafka-go-producer
+        app: {{ .Values.producer.name }}
     spec:
       containers:
       - name: kafka-go-producer
-        image: diwakar50/kafka-go-producer:latest
+        image: {{ .Values.producer.image.name }}: {{- .Values.producer.image.tag }}
         imagePullSecrets:
-          - name: regcred
+          - name: {{ .Values.imagePullSecrets }}
         env:
           - name: BOOTSTRAP_SERVERS
-            value: "my-cluster-kafka-bootstrap:9092"
+            value: {{ .Values.kafka.bootstrap.server }}: {{- .Values.kafka.bootstrap.port }}
           - name: TOPIC
-            value: "my-topic"
+            value: {{ .Values.kafka.topic.name }}

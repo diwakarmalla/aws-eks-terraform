@@ -1,0 +1,45 @@
+imagePullSecrets: regcred
+
+kafka:
+  namespace: kafka
+  cluster: my-cluster
+  replicas: 3
+  bootstrap: 
+    server: my-cluster-kafka-bootstrap
+    port: 9092
+  topic:
+    name: my-topic
+    partitions: 3
+    replicas: 3
+
+producer:
+  name: kafka-go-producer
+  image: 
+    name: diwakar50/kafka-go-producer
+    tag: latest
+  replicas: 1
+
+consumer:
+  name: kafka-go-consumer
+  image: 
+    name: diwakar50/kafka-go-consumer
+    tag: latest
+  replicas: 1
+  GROUP_ID: my-kafka-go-consumer
+
+observability:
+  namespace: observability
+  prometheus:
+    port: 9090
+    targetPort: 9090
+  grafana:
+    port: 80
+    targetPort: 3000
+  clusterrole: prometheus-server
+  serviceaccount: prometheus-kube-prometheus-prometheus
+  
+
+  
+
+
+

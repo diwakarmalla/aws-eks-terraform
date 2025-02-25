@@ -1,12 +1,12 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: my-cluster
-  namespace: kafka
+  name: {{ .Values.kafka.cluster }}
+  namespace: {{ .Values.kafka.namespace }}
 spec:
   kafka:
     version: 3.7.1
-    replicas: 3
+    replicas: {{ .Values.kafka.replicas }}
     listeners:
       - name: plain
         port: 9092
