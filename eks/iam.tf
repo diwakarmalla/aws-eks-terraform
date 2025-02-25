@@ -1,3 +1,28 @@
+# resource "aws_iam_user" "user" {
+#     for_each = local.users
+#     name = each.key
+# }
+
+# resource "aws_iam_access_key" "access_key" {
+#     for_each = local.users
+#     user = aws_iam_user.user[each.key].name
+# }
+
+# resource "aws_iam_group" "groups" {
+#     for_each = local.users
+#     name = "${each.key}_group"
+# }
+
+# resource "aws_iam_group_membership" "group_membership" {
+#     for_each = local.users
+#     name = "${each.key} group membership"
+#     users = [ aws_iam_user.user[each.key].name ]
+#     group = aws_iam_group.groups[each.key].name
+# }
+data "aws_iam_user" "cloud_user" {
+  user_name = "cloud_user"
+}
+
 module "vpc_cni_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.0"

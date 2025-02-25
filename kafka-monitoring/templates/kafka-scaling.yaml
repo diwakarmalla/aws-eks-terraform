@@ -10,13 +10,12 @@ spec:
     kind: Deployment
     name: kafka-go-consumer
   pollingInterval: 10
-  minReplicaCount: 0
+  minReplicaCount: 2
   maxReplicaCount: 5
   cooldownPeriod: 5
   triggers:
   - type: kafka
     metadata:
-    #   bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
       bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
       consumerGroup: my-kafka-go-consumer      # Make sure that this consumer group name is the same one as the one that is consuming topics
       topic: my-topic

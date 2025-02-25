@@ -20,12 +20,3 @@ vpc_name = "eks-monitoring"
 vpc_cidr = "10.0.0.0/16"
 private_subnet_cidr = ["10.0.0.0/22", "10.0.4.0/22", "10.0.8.0/22"]
 public_subnet_cidr = ["10.0.100.0/22", "10.0.104.0/22", "10.0.108.0/22"]
-
-access_entries =   {
-      viewer = {
-        user_arn = []
-      }
-      admin = {
-        user_arn = ["arn:aws:iam::851725635917:user/cloud_user"]
-      }
-    }

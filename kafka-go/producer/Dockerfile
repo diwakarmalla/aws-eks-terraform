@@ -1,9 +1,11 @@
-FROM golang:latest
-
+FROM golang:latest AS base
 WORKDIR /app
-
 COPY go.mod go.sum ./
 RUN go mod download
 COPY main.go ./
-RUN go build -o /producer
+
+FROM base AS build
+RUN go build -o /consumer
+
+FROM build AS final
 CMD ["/producer"]

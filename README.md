@@ -6,9 +6,9 @@ aws configure
 Deploy EKS cluster using below terragrunt commands
 
 ```
-terragrunt init
-terragrunt plan
-terragrunt apply
+terragrunt run-all init
+terragrunt run-all plan
+terragrunt run-all apply
 ```
 Create docker registry secret using below command:
 ```
@@ -27,7 +27,11 @@ observability- Prometheus, Grafana and Pod Moitors
 keda - Keda Resources
 ```
 
-Consumer will sleep for 5min after reading each message. Please validate consumer lag and consumer resource scaling
+Access Prometheus/Grafana UI using loadbalancer URL:port
+
+Consumer pods will wait for 5min after reading each message. 
+
+Validate consumer lag using kafka_consumergroup_lag metric in Prometheus and check consumer pods count in kafka namespace
 
 
 

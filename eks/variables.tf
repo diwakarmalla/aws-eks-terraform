@@ -50,9 +50,3 @@ variable "public_subnet_cidr" {
     description = "Public Subnet CIDR"
     type = list(string)
 }
-
-variable "access_entries" {
-    type = any
-    description = "EKS Access entries"
-  
-}

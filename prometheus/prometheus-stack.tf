@@ -13,9 +13,9 @@
 # }
 
 resource "kubernetes_namespace" "kube-ns" {
-    depends_on = [ local-exec.update_kubeconfig ]
+    # depends_on = [ module.eks.eks_managed_node_groups ]
     metadata {
-      name = "observability"
+      name = var.prometheus_ns
     }
   
 }
@@ -27,9 +27,9 @@ resource "helm_release" "prometheus" {
     chart = "kube-prometheus-stack"
     namespace = kubernetes_namespace.kube-ns.id
     create_namespace = true
-    version = "69.3.3"
+    version = var.prometheus_version
     values = [ 
-        file("prometheus/values.yaml")
+        file("files/values.yaml")
     ]
     timeout = 2000
 

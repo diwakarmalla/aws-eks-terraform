@@ -50,18 +50,29 @@ module "eks" {
   }
 
   access_entries = {
-    for k in local.eks_access_entries : k.username => {
+    my_entry = {
       kubernetes_groups = []
-      principal_arn     = k.username
+      principal_arn = data.aws_iam_user.cloud_user.arn
       policy_associations = {
         single = {
-          policy_arn = k.access_policy
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             type = "cluster"
           }
         }
       }
+
+
+
     }
   }
+
+  # access_entries = {
+  #   for k in local.eks_access_entries : k.username => {
+  #     kubernetes_groups = []
+  #     principal_arn     = k.username
+
+  #   }
+  # }
 
 }
